@@ -1,0 +1,15 @@
+{
+  "name": "1erdesafio",
+  "version": "1.0.0",
+  "description": "1er desafio com43400 EChiosso",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "eze-ch"
+  },
+  "author": "ECH",
+  "license": "ISC"
+}
