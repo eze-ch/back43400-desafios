@@ -3,7 +3,7 @@
  
  async function test() {
     //instance creation of ProductManager
-    const productManager = new ProductManager('productList.json');
+    const productManager = new ProductManager('products.json');
 
     //call method getProduct without added products to show empty array
     console.log("\n")

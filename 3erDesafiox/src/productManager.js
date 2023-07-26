@@ -1,5 +1,12 @@
 import fs from 'fs';
-//import * as fs from 'node:fs';
+
+/* const filePath = 'products.json';
+
+// Se verifica si el archivo existe, si no existe se crea.
+if (!fs.existsSync(filePath)) {
+  fs.writeFileSync(filePath, '[]', 'utf-8');
+  console.log(`Se ha creado el archivo ${filePath}`);
+} */
 
 // CLASS TO HANDLE PRODUCTS WITH FILESYSTEM HANDLING
 class ProductManager {
@@ -7,15 +14,18 @@ class ProductManager {
   //products creator - init empty array
   constructor(path) {
     this.path = path
+    console.log(this.path)
   }
 
   //method to get products from file and return product array
   async getProducts() {
     try {
       if (fs.existsSync(this.path)) {
+        console.log("archivo encontrado");
         const archiveInfo = await fs.promises.readFile(this.path, 'utf-8')
         return JSON.parse(archiveInfo) // convert string json info to object
       } else {
+        console.log("archivo NO encontrado");
         return [] // return empty array. So allways return the same type data
       }
 
