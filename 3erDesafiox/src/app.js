@@ -26,9 +26,9 @@ app.get('/products', async (req,res) =>{
         //Devolver el listado con tods los productos o el límite que se haya ingresado
         const response = products.slice(0, limit);
 
-        //res.json({message: 'Productos encontrados', response})
-        res.json(response);
-        //res.send({response})
+        //res.status(200).json({message: 'Productos encontrados', response})
+        res.status(200).json(response);
+        
     } catch (error) {
         res.status(500).json({ error: 'Error al obtener listado de productos' });
     }

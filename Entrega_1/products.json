@@ -1,0 +1,110 @@
+[
+  {
+    "title": "Producto 1",
+    "description": "Descripción 1",
+    "price": 100,
+    "thumbnail": "img1",
+    "code": "p1",
+    "stock": 10,
+    "id": 1
+  },
+  {
+    "title": "Producto 2",
+    "description": "Descripción 2",
+    "price": 200,
+    "thumbnail": "img2",
+    "code": "p2",
+    "stock": 20,
+    "id": 2
+  },
+  {
+    "title": "Producto 3",
+    "description": "Descripción 3",
+    "price": 300,
+    "thumbnail": "img3",
+    "code": "p3",
+    "stock": 30,
+    "id": 3
+  },
+  {
+    "title": "Producto 4",
+    "description": "Descripción 4",
+    "price": 400,
+    "thumbnail": "img4",
+    "code": "p4",
+    "stock": 40,
+    "id": 4
+  },
+  {
+    "title": "Producto 5",
+    "description": "Descripción 5",
+    "price": 500,
+    "thumbnail": "img5",
+    "code": "p5",
+    "stock": 50,
+    "id": 5
+  },
+  {
+    "title": "Producto 6",
+    "description": "Descripción 6",
+    "price": 600,
+    "thumbnail": "img6",
+    "code": "p6",
+    "stock": 60,
+    "id": 6
+  },
+  {
+    "title": "Producto 7",
+    "description": "Descripción 7",
+    "price": 700,
+    "thumbnail": "img7",
+    "code": "p7",
+    "stock": 70,
+    "id": 7
+  },
+  {
+    "title": "Producto 8",
+    "description": "Descripción 8",
+    "price": 800,
+    "thumbnail": "img8",
+    "code": "p8",
+    "stock": 80,
+    "id": 8
+  },
+  {
+    "title": "Producto 9",
+    "description": "Descripción 9",
+    "price": 900,
+    "thumbnail": "img9",
+    "code": "p9",
+    "stock": 90,
+    "id": 9
+  },
+  {
+    "title": "Producto 10",
+    "description": "Descripción 10",
+    "price": 1000,
+    "thumbnail": "img10",
+    "code": "p10",
+    "stock": 100,
+    "id": 10
+  },
+  {
+    "title": "Producto 11",
+    "description": "Descripción 11",
+    "price": 1100,
+    "thumbnail": "img11",
+    "code": "p11",
+    "stock": 110,
+    "id": 11
+  },
+  {
+    "title": "Producto 12",
+    "description": "Descripción 12",
+    "price": 1200,
+    "thumbnail": "img12",
+    "code": "p12",
+    "stock": 120,
+    "id": 12
+  }
+]
