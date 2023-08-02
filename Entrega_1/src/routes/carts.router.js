@@ -16,8 +16,8 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const { id } = req.params;
-        const cart = await cartsManager.getCartById(id);
+        const cartId = parseInt(req.params.id);
+        const cart = await cartsManager.getCartById(cartId);
         res.json(cart);
     } catch (error) {
         res.status(500).send({ error: error.message });

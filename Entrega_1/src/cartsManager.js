@@ -58,6 +58,9 @@ class CartsManager{
 
             const carts = await this.getCarts()
             const cart = carts.find((c) => c.id === id)
+            console.log(carts)
+            console.log(carts.length)
+            console.log(cart)
             if (cart) {
               console.log(`Carrito con ID ${id} encontrado.`);
               return cart;

@@ -47,41 +47,37 @@ router.get('/:pid', async (req, res) => {
 
 
 // Endpoint POST /api/products .Permite adicionar un nuevo producto
-router.post('/', (req, res) => {
-  const { title, description, code, price, stock, category, thumbnails } = req.body;
-  const product = {
-    title,
-    description,
-    code,
-    price,
-    status: true, // Siguiendo el requerimiento se aplica el status TRUE por defecto
-    stock: stock, //VER DE SACAR stock:
-    category,
-    thumbnails: thumbnails ? thumbnails.split(',') : [], 
-  };
-
-  const newProduct = productManagerInstance.addProduct(product);
-  if (newProduct) {
-    res.status(201).json(newProduct);
-  } else {
-    res.status(400).json({ error: 'No se pudo agregar el producto' });
-  }
+router.post('/', async (req, res) => {
+    try {
+        const product = req.body;
+        const newProd = await productManagerInstance.addProduct(product);
+        res.send(newProd);
+    } catch (error) {
+        res.status(500).send({ error: error.message });
+    }
 });
 
 // Endpoint PUT /api/products/:pid   (Actualizará un producto)
 router.put('/:pid', async (req, res) => {
-  const productId = parseInt(req.params.pid);
-  const updatedFields = req.body; 
-  await productManagerInstance.updateProduct(productId, updatedFields);
-  res.json({ message: 'Producto actualizado exitosamente' });
+    try {
+        const productId = parseInt(req.params.pid);
+        const updatedFields = req.body; 
+        const updatedProd = await productManagerInstance.updateProduct(productId, updatedFields);
+        res.status(200).json(updatedProd);
+    } catch (error) {
+        res.status(500).send({ error: error.message });
+    }
 });
 
 // Endpoint DELETE /api/products/:pid (Eliminará un producto)
 router.delete('/:pid', async (req, res) => {
-  const productId = parseInt(req.params.pid);
-  await productManagerInstance.deleteProduct(productId);
-  res.json({ message: 'Producto eliminado exitosamente' });
+    try {
+        const productId = parseInt(req.params.pid);
+        await productManagerInstance.deleteProduct(productId);
+        res.status(200).json({ message: 'Producto eliminado exitosamente' });
+    } catch (error) {
+        res.status(500).send({ error: error.message });
+    }
 });
-
 
 export default router;
