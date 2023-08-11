@@ -10,7 +10,7 @@ socketClient.on('connect', () => {
 socketClient.on('addProduct', (newProduct) => {
   const productList = document.getElementById('productList');
   const newItem = document.createElement('li');
-  newItem.textContent = `${newProduct.title} - ${newProduct.price} - ${newProduct.description}`;
+  newItem.textContent = `Nombre del producto: ${newProduct.title} - Precio: ${newProduct.price} - Descripción: ${newProduct.description} - ID NRO: ${newProduct.id}`;
   productList.appendChild(newItem);
 });
 

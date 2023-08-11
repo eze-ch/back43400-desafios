@@ -59,13 +59,16 @@ socketServer.on('connection', (socket) => {
 
   socket.on('addProduct', (newProduct) => {
     const addedProduct = productManagerInstance.addProduct(newProduct);
-    socketServer.emit('addProduct', addedProduct); 
+    const allproducts = productManagerInstance.loadProducts();
+    socketServer.emit('addProduct', addedProduct);
+    //socketServer.emit('updateProductList', allproducts);  
   });
 
   socket.on('deleteProduct', (productId) => {
     productManagerInstance.deleteProduct(Number(productId));
+    const allproducts = productManagerInstance.loadProducts();
     socketServer.emit('productDeleted', productId); 
-    socketServer.emit('updateProductList'); 
+    //socketServer.emit('updateProductList', allproducts);
   });
 });
 

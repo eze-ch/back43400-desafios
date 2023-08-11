@@ -1,16 +1,16 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f7e4e8;
-  color: #333;
+  background-color: #1b1b1b;
+  color: #ffffff;
 }
 
 h1 {
-  color: #454545;
+  color: #ffffff;
   text-align: center;
 }
 
 h2 {
-  color: #454545;
+  color: #ffffff;
 }
 
 ul#productList {
@@ -20,7 +20,7 @@ ul#productList {
 }
 
 ul#productList li {
-  border-bottom: 1px solid #e87aa4;
+  border-bottom: 1px solid #ff8c00;
   padding: 10px;
 }
 
@@ -33,7 +33,7 @@ form {
 
 form label {
   display: block;
-  color: #e87aa4;
+  color: #ff8c00;
   margin-bottom: 5px;
 }
 
@@ -44,14 +44,14 @@ form input {
 }
 
 .card {
-  border: 1px solid #e87aa4;
+  border: 1px solid #ff8c00;
   padding: 10px;
   margin-bottom: 20px;
 }
 
 .card label {
   display: block;
-  color: #e87aa4;
+  color: #ff8c00;
   margin-bottom: 5px;
 }
 
@@ -62,7 +62,7 @@ form input {
 }
 
 form button {
-  background-color: #e87aa4;
+  background-color: #ff8c00;
   color: #454545;
   padding: 10px 20px;
   border: none;
@@ -70,5 +70,5 @@ form button {
 }
 
 form button:hover {
-  background-color: #d05376;
+  background-color: #ff8c00;
 }
