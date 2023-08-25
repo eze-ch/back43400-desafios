@@ -1,0 +1,119 @@
+[
+  {
+    "title": "Producto 1",
+    "description": "Descripción 1",
+    "price": 100,
+    "thumbnail": "img1",
+    "code": "p1",
+    "stock": 10,
+    "status": true,
+    "category": "catA",
+    "id": 1
+  },
+  {
+    "title": "Producto 2",
+    "description": "Descripción 2",
+    "price": 200,
+    "thumbnail": "img2",
+    "code": "p2",
+    "stock": 20,
+    "status": true,
+    "category": "catA",
+    "id": 2
+  },
+  {
+    "title": "Producto 4",
+    "description": "Descripción 4",
+    "price": 400,
+    "thumbnail": "img4",
+    "code": "p4",
+    "stock": 40,
+    "status": true,
+    "category": "catA",
+    "id": 4
+  },
+  {
+    "title": "Producto 5",
+    "description": "Descripción 5",
+    "price": 500,
+    "thumbnail": "img5",
+    "code": "p5",
+    "stock": 50,
+    "status": true,
+    "category": "catA",
+    "id": 5
+  },
+  {
+    "title": "Producto 8",
+    "description": "Descripción 8",
+    "price": 800,
+    "thumbnail": "img8",
+    "code": "p8",
+    "stock": 79,
+    "status": true,
+    "category": "catB",
+    "id": 8
+  },
+  {
+    "title": "Producto 9",
+    "description": "Descripción 9",
+    "price": 900,
+    "thumbnail": "img9",
+    "code": "p9",
+    "stock": 90,
+    "status": true,
+    "category": "catB",
+    "id": 9
+  },
+  {
+    "title": "Producto 12 Mod",
+    "description": "Descripción X",
+    "price": 1300,
+    "thumbnail": "img12",
+    "code": "p12",
+    "stock": 118,
+    "status": true,
+    "category": "catX",
+    "id": 12
+  },
+  {
+    "title": "qwqwr",
+    "description": "ytrgvdvf",
+    "price": "234",
+    "code": "ytry6",
+    "stock": "1412",
+    "category": "twerw",
+    "id": 16,
+    "status": true
+  },
+  {
+    "title": "rqwcasa",
+    "description": "qdwdadw",
+    "price": "124123",
+    "code": "p7345235",
+    "stock": "3425",
+    "category": "catJ",
+    "id": 17,
+    "status": true
+  },
+  {
+    "title": "ertwerge",
+    "description": "gerqtq",
+    "price": "243",
+    "code": "twer4",
+    "stock": "4123",
+    "category": "dawe45",
+    "id": 18,
+    "status": true
+  },
+  {
+    "title": "tqqwdqwfsf",
+    "description": "afagadwadas",
+    "price": "14",
+    "code": "41fsf",
+    "stock": "3235",
+    "category": "fsesdv",
+    "id": 19,
+    "status": true
+  }
+]
