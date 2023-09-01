@@ -1,0 +1,1 @@
+npm i express express-handlebars socket.io mongoose mongoose-paginate-v2
