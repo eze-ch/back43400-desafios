@@ -1,19 +1,60 @@
 //Router para manejar todos los endpoint asociados a los productos.
 import { Router } from "express";
-import { ProductManager } from "../manager/productManager.js";
 import { MongoProductManager } from '../manager/mongoProductManager.js';
 
+import fs from 'fs'
+import { __dirname } from '../utils.js'
+
 const router = Router();
-//IMPORTANTE! Elegir instancia con FileSystem o Mongo
-//const productManagerInstance = new ProductManager('./products.json');
 const productManagerInstance = new MongoProductManager();
+
+
+//// para agregar json de estudiantes. Usar para cargar a mongoAtlas y luego comentar
+/* router.get('/addJSON', async (req,res) => {
+    const path = __dirname +'/products.json'
+    console.log (path)
+    const productsData = await fs.promises.readFile(path,'utf-8')
+    await productManagerInstance.addJSON(JSON.parse(productsData))
+    res.json({mensagge: 'Products added'})
+}) */
 
 // Endpoint GET /api/products (Traerá listados todos los productos)
 router.get('/', async (req, res) => {
   try {
-    const products = await productManagerInstance.getProducts();
-    const limit = req.query.limit ? parseInt(req.query.limit) : null;
-    const response = limit ? products.slice(0, limit) : products;
+    const { limit = 10, page = 1, query, sort } = req.query;
+
+    let queryOptions = {};
+    if (query) {
+      queryOptions = {
+        $or: [
+          { title: { $regex: query, $options: 'i' } }, // Búsqueda por título (NO case sensitive)
+          { category: { $regex: query, $options: 'i' } }, // Búsqueda por categoría (NO case sensitive)
+        ],
+      };
+    }
+
+    const sortOptions = {};
+    if (sort === 'asc') {
+      sortOptions.price = 1; // Orden ascendente por precio
+    } else if (sort === 'desc') {
+      sortOptions.price = -1; // Orden descendente por precio
+    }
+
+    const productsPaginated = await productManagerInstance.getProducts(queryOptions, sortOptions, limit, page);
+
+    const response = {
+      status: 'success',
+      payload: productsPaginated.docs, 
+      totalPages: productsPaginated.totalPages,
+      prevPage: productsPaginated.hasPrevPage ? productsPaginated.prevPage : null,
+      nextPage: productsPaginated.hasNextPage ? productsPaginated.nextPage : null,
+      page: productsPaginated.page,
+      hasPrevPage: productsPaginated.hasPrevPage,
+      hasNextPage: productsPaginated.hasNextPage,
+      prevLink: productsPaginated.hasPrevPage ? `/api/products?limit=${limit}&page=${productsPaginated.prevPage}&query=${query}&sort=${sort}` : null,
+      nextLink: productsPaginated.hasNextPage ? `/api/products?limit=${limit}&page=${productsPaginated.nextPage}&query=${query}&sort=${sort}` : null,
+    };
+
     res.json(response);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener listado de productos' });
@@ -23,7 +64,7 @@ router.get('/', async (req, res) => {
 // Endpoint GET /api/products/:pid (Traerá listado el producto por ID único)
 router.get('/:pid', async (req, res) => {
   try {
-    const productId = parseInt(req.params.pid);
+    const productId = req.params.pid; //Quitamos el parseint para que funcione Mongoose
     const product = await productManagerInstance.getProductById(productId);
 
     if (!product) {

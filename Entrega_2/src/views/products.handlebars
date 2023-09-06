@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="{{__dirname}}/style.css">
+  <title>Productos</title>
+</head>
+<body>
+  <h1>Listado de Productos</h1>
+   <a href="/"><button>Home</button></a>
+  <ul>
+<ul>
+  {{#each products.docs}}
+    <li>
+      <h2>Nombre producto: {{title}}</h2>
+      <img src="{{thumbnail}}" alt="image">
+      <p>Precio: {{price}}</p>
+      <p>Categoría: {{category}}</p>
+      <button class="view-details-button" data-product-id={{_id}}>Ver detalle</button>
+      <button class="add-to-cart-button" data-product-id={{_id}}>Agregar al carrito</button>
+    </li>
+  {{/each}}
+</ul>
+
+  
+  {{#if totalPages}}
+    <p>Página {{page}} de {{totalPages}}</p>
+    {{#if prevLink}}
+      <a href={{prevLink}}>Página anterior</a>
+    {{/if}}
+    {{#if nextLink}}
+      <a href={{nextLink}}>Página siguiente</a>
+    {{/if}}
+  {{/if}}
+
+<script>
+  function viewDetails(productId) {
+    window.location.href = `/api/views/products/${productId}`;
+  }
+
+  function addToCart(productId) {
+    fetch(`/api/carts/${cartId}/product/${productId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ quantity: 1 }), // Provisorio hasta no tener una vista con el campo para ingresar la cantidad, lo sumaoms de a uno
+    })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(cart) {
+
+        console.log('Producto agregado al carrito', cart);
+      })
+      .catch(function(error) {
+        console.error('Error al agregar producto al carrito', error);
+      });
+  }
+</script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/products.js"></script>
+</body>
+</html>

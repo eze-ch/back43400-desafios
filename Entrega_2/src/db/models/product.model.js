@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import mongoosePaginate from "mongoose-paginate-v2";
 
 const productSchema = new mongoose.Schema({
     title:{
@@ -17,10 +18,10 @@ const productSchema = new mongoose.Schema({
     code:{
         type:String,
         required:true,
-        unique:true
+        unique:true // si la propiedad es unica, mongo automaticamente la indexa, mo hace falta especificarlo
     },
     status:{
-        type:String,
+        type:Boolean,
         default:true
     },
     category:{
@@ -28,7 +29,7 @@ const productSchema = new mongoose.Schema({
         required:true
     },
     thumbnail:{
-        type:String
+        type:[String]
     },
     description:{
         type:String,
@@ -36,6 +37,7 @@ const productSchema = new mongoose.Schema({
     }
 })
 
+productSchema.plugin(mongoosePaginate);
 const Product = mongoose.model('Product', productSchema);
 
 export { Product };

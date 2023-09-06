@@ -4,8 +4,18 @@ import { Product } from '../db/models/product.model.js';
 
 
 class MongoProductManager {
-  //Agregar productos
 
+  //agregar JSON de productos
+  async addJSON(products) {
+    try {
+      await Product.create(products)
+      return 'products added'
+    } catch (error) {
+      return error
+    }
+  }
+
+  //Agregar productos
   async addProduct(product) {
     try {
       const newProduct = new Product(product);
@@ -17,8 +27,8 @@ class MongoProductManager {
     }
   }
   
-  //Obtener productos
-  async getProducts() {
+  //Obtener productos - metodo anterior sin paginacion
+/*   async getProducts() {
     try {
       const products = await Product.find();
       return products;
@@ -26,7 +36,28 @@ class MongoProductManager {
       console.log('Error al obtener productos', error.message);
       throw new Error('Error al obtener productos');
     }
+  } */
+
+  //Obtener cantidad de documentos (productos) en DB 
+  async getProductsCount(queryOptions = {}) {
+    return await Product.countDocuments(queryOptions);
   }
+  
+  //Obtener productos con paginacion
+  async getProducts(queryOptions = {}, sortOptions = {}, limit = 10, page = 1) {
+    //en queryOptions vienen los paramentros de filtrado 
+    const options = {
+      sort: sortOptions,
+      page: page,
+      limit: limit,
+      lean: true,
+    };
+
+    const result = await Product.paginate(queryOptions, options);
+    return result;
+  }
+
+
   //Obtener productos por ID
   async getProductById(id) {
     try {
@@ -37,6 +68,7 @@ class MongoProductManager {
       throw new Error('Error al obtener producto por ID');
     }
   }
+
   //Actualizar producto
   async updateProduct(id, updatedFields) {
     try {
@@ -47,6 +79,7 @@ class MongoProductManager {
       throw new Error('Error al actualizar producto');
     }
   }
+  
   //Eliminar producto por id
   async deleteProduct(id) {
     try {

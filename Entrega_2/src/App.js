@@ -10,9 +10,6 @@ import cartsRouter from '../src/routes/carts.router.js';
 import viewsRouter from '../src/routes/views.router.js' 
 
 import { Message } from '../src/db/models/messages.model.js';
-
-//IMPORTANTE! el primer import es para trabajar con FileSystem, el segundo con Mongo.. descomentar mas abajo segun cual se desea usar
-import { ProductManager } from '../src/manager/productManager.js';   
 import { MongoProductManager } from '../src/manager/mongoProductManager.js';
 
 
@@ -30,37 +27,29 @@ app.set('views', __dirname + '/views')
 app.set('view engine', 'handlebars')
 
 
-//Routes viewRouter
-app.use('/api/views', viewsRouter)
-app.use('api/views/delete/:id', viewsRouter)
-
-
-//IMPORTANTE! Descomentar la siguiente línea y comentar la posterior si se quiere trabajar con persistencia a través de FS.
-//const productManagerInstance = new ProductManager('./products.json');
+// Declaracion de variables
 const productManagerInstance = new MongoProductManager();
 
 
-//Mensaje de bienvenida al acceder a la raíz de la app
-app.get('/', (req, res) => {
-  res.send('¡Bienvenidos a mi aplicación!');
-});
+//Routes viewRouter
+app.get('/', (req, res) => { res.send('Ecommerce Backend - ECH') }); //Mensaje al acceder a la raíz de la app
 
-//Rutas
+app.use('/api/views', viewsRouter)
+app.use('api/views/delete/:id', viewsRouter)
+
 app.use('/api/products', productsRouter);
-
+app.use ('/api/views/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 
-app.get('/chat', (req, res) => {
-  res.render('chat', { messages: [] }); 
-});
+app.get('/chat', (req, res) => { res.render('chat', { messages: [] }) });
 
 
 //Declaración de puerto variable + llamado al puerto 
 const PORT = 8080
-
 const httpServer = app.listen(PORT, () => {
   console.log(`Escuchando al puerto ${PORT}`)
 })
+
 
 //Socket y eventos
 const socketServer = new Server(httpServer);

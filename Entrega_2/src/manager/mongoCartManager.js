@@ -18,6 +18,7 @@ class MongoCartManager {
     try {
       await cart.save();
       console.log('Se guardó el carrito');
+      return cart;
     } catch (error) {
       throw new Error('Error al guardar el carrito: ' + error.message);
     }
@@ -69,6 +70,106 @@ class MongoCartManager {
 
     return cart;
   }
+
+  //Remover producto by ID
+  async removeProductFromCart(cartId, productId) {
+    const cart = await this.getCartById(cartId);
+    cart.products = cart.products.filter(p => !p.product.equals(productId));
+
+    try {
+      await this.saveCart(cart);
+      console.log(`Producto eliminado del carrito ${cartId}`);
+    } catch (error) {
+      throw new Error('Error al guardar el carrito: ' + error.message);
+    }
+
+    return cart;
+  }
+
+  //Actualizar carrito
+  async updateCart(cartId, newProducts) {
+    try {
+      console.log(`Actualizando el carrito ${cartId}`);
+      const cart = await this.getCartById(cartId);
+      
+      if (!cart) {
+        throw new Error("Carrito no encontrado");
+      }
+      
+      if (!Array.isArray(newProducts)) {
+        throw new Error("Invalid products data");
+      }
+      
+      newProducts.forEach((newProduct) => {
+        const existingProduct = cart.products.find(
+          (product) => product.product.toString() === newProduct.product
+        );
+        
+        if (existingProduct) {
+          existingProduct.quantity += newProduct.quantity;
+        } else {
+          cart.products.push(newProduct);
+        }
+      });
+      
+      await this.saveCart(cart);
+      console.log(`El carrito ${cartId} fue actualizado con los nuevos productos`);
+      return cart;
+
+      } catch (error) {
+      console.error("Error al actualizar el carrito:", error);
+      throw new Error("Error al actualizar el carrito: " + error.message);
+      }
+  }
+  
+
+  //Actualizar cantidad de un producto específico
+  async updateProductQuantity(cartId, productId, newQuantity) {
+    const cart = await this.getCartById(cartId);
+    const product = cart.products.find(p => p.product.equals(productId));
+    if (product) {
+      product.quantity = newQuantity;
+    }
+
+    try {
+      await this.saveCart(cart);
+      console.log(`Cantidad del producto actualizada en el carrito ${cartId}`);
+    } catch (error) {
+      throw new Error('Error al guardar el carrito: ' + error.message);
+    }
+
+    return cart;
+  }
+
+  //Eliminar todos los productos de un carrito
+  async clearCart(cartId) {
+    const cart = await this.getCartById(cartId);
+    cart.products = [];
+
+    try {
+      await this.saveCart(cart);
+      console.log(`Carrito vaciado ${cartId}`);
+    } catch (error) {
+      throw new Error('Error al guardar el carrito: ' + error.message);
+    }
+
+    return cart;
+  }
+  
+  //Uso de populate al buscar un carrito x ID para listar sus productos
+  async getPopulatedCartById(_id) {
+    try {
+      const cart = await Cart.findById(_id).populate('products.product');
+      if (cart) {
+        return cart;
+      } else {
+        throw new Error('Carrito no encontrado');
+      }
+    } catch (error) {
+      throw new Error('Error al obtener el carrito: ' + error.message);
+    }
+  }
+  
 }
 
 export { MongoCartManager };
