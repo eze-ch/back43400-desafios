@@ -1,9 +1,48 @@
 import { Router } from "express";
 import { MongoProductManager } from '../manager/mongoProductManager.js';
+import { MongoCartManager } from '../manager/mongoCartManager.js';
+import { userMongo } from "../manager/userManagerMongo.js";
+import session from "express-session";  
+import MongoStore from "connect-mongo";
+import { URI } from '../utils.js';
 
 const router = Router();
 const productManagerInstance = new MongoProductManager(); 
+const cartManagerInstance = new MongoCartManager(); 
 
+router.use(session({
+  store: MongoStore.create({
+      mongoUrl: URI,
+      mongoOptions: {useNewUrlParser: true, useUnifiedTopology: true},
+      ttl: 600
+  }),
+  secret: "secret",
+  resave:false,
+  saveUninitialized:false,
+}))
+
+router.get('/', async (req, res) => {
+  res.render('sesion')
+  
+});
+
+router.get('/login', async (req, res) => {
+  res.render('login');
+});
+
+router.get('/index', async (req, res) => {
+  const email = req.session.email
+  if (!email) {
+      res.redirect('/login')
+  }else{
+  const user = await userMongo.findUser(email)
+  const admin = user.isAdmin ? "ADMIN" : "USER"
+  const cook = [{
+      first_name: user.first_name,
+      rol: admin
+  }]
+  res.render("index", { cook });}
+})
 
  // Renderizará la vista API/VIEWS/ correspondiente al "Home" y pasará el listado de productos completo.
  router.get('/', async (req, res) => {
