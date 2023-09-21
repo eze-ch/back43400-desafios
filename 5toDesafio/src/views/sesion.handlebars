@@ -1,4 +1,4 @@
-<h1>SING UP</h1>
+{{!-- <h1>SING UP</h1>
 
 <form action="/api/user" method="post">
     <label for="first_name">first name:</label>
@@ -21,4 +21,35 @@
 <br>
 <br>
 
+<a href="/login"><button>LOG IN</button></a> --}}
+
+
+
+<h1>SING UP</h1>
+
+<form id="registerForm">
+    <label for="first_name">first name:</label>
+    <input type="text" name="first_name" id="first_name"><br>
+
+    <label for="last_name">last name:</label>
+    <input type="" name="last_name" id="last_name"><br>
+
+    <label for="email">email:</label>
+    <input type="text" name="email" id="email"><br>
+
+    <label for="text">age:</label>
+    <input type="number" name="age" id="age"><br>
+
+    <label for="pasword">pasword:</label>
+    <input type="password" name="password" id="password"><br><br>
+
+    <input type="submit" value="SEND">
+</form>
+<br>
+<br>
+
 <a href="/login"><button>LOG IN</button></a>
+
+
+{{!-- no vamos a mandar el formulario desde action como antes, sino asi: desde el scrip siguiente con fetch. La ventaja de hacerlo desde un archivo js, y no con actions desde aca, es que puedo hacer que la pagina no se refrsque.. con el action si o si se refresca la pagina--}}
+<script src="js/register.js"></script>

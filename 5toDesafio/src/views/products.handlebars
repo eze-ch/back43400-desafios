@@ -9,7 +9,7 @@
    <a href="/index"><button>Home</button></a>
   <ul>
 <ul>
-  {{#each products.docs}}
+  {{#each products.payload}}
     <li>
       <h2>Nombre producto: {{title}}</h2>
       <img src="{{thumbnail}}" alt="image">
@@ -22,13 +22,13 @@
 </ul>
 
   
-  {{#if totalPages}}
-    <p>Página {{page}} de {{totalPages}}</p>
-    {{#if prevLink}}
-      <a href={{prevLink}}>Página anterior</a>
+  {{#if products.totalPages}}
+    <p>Página {{products.page}} de {{products.totalPages}}</p>
+    {{#if products.prevLink}}
+      <a href={{products.prevLink}}>Página anterior</a>
     {{/if}}
-    {{#if nextLink}}
-      <a href={{nextLink}}>Página siguiente</a>
+    {{#if products.nextLink}}
+      <a href={{products.nextLink}}>Página siguiente</a>
     {{/if}}
   {{/if}}
 

@@ -1,4 +1,4 @@
-<h1>LOG IN</h1>
+{{!-- <h1>LOG IN</h1>
 
 <form action="/api/user/login" method="post">
     <label for="email">email:</label>
@@ -10,4 +10,20 @@
     <input type="submit" value="SEND">
 </form><br>
 
-<a href="/"><button>SING UP</button></a>
+<a href="/"><button>SING UP</button></a> --}}
+
+<h1>LOG IN</h1>
+
+<form id="loginForm">
+    <label>email:</label>
+    <input type="text" name="email" id="email"><br>
+
+    <label>pasword:</label>
+    <input type="password" name="password" id="password"><br><br>
+    
+    <input type="submit">
+</form><br>
+
+<a href="/register"><button>SING UP</button></a>
+
+<script src="js/login.js"></script>

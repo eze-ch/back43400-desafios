@@ -33,6 +33,24 @@ app.engine('handlebars', handlebars.engine())
 app.set('views', __dirname + '/views')
 app.set('view engine', 'handlebars')
 
+
+// Declaracion de variables
+const productManagerInstance = new MongoProductManager();
+
+//session
+app.set('trust proxy', 1)
+app.use(session({
+    store: new MongoStore({
+        mongoUrl: URI,
+        mongoOptions: {useNewUrlParser: true, useUnifiedTopology: true},
+        ttl: 600
+    }),
+    secret: "secret",
+    resave:false,
+    saveUninitialized:false,
+}))
+
+
 // ENDPOINTS
 //app.get('/', (req, res) => { res.send('Ecommerce Backend - ECH') }); //Mensaje al acceder a la raíz de la app
 
@@ -44,23 +62,6 @@ app.get('/chat', (req, res) => { res.render('chat', { messages: [] }) });
 
 //app.use ('/api/views/products', productsRouter);
 //app.use('api/views/delete/:id', viewsRouter)
-
-
-// Declaracion de variables
-const productManagerInstance = new MongoProductManager();
-
-//session
-app.set('trust proxy', 1)
-app.use(session({
-    store: MongoStore.create({
-        mongoUrl: URI,
-        mongoOptions: {useNewUrlParser: true, useUnifiedTopology: true},
-        ttl: 600
-    }),
-    secret: "secret",
-    resave:false,
-    saveUninitialized:false,
-}))
 
 
 //Declaración de puerto variable + llamado al puerto 
